@@ -4,18 +4,20 @@
 
 #pragma once
 #include "afxwin.h"
+//哈夫曼树节点结构体
 struct HTNode
 {
-	int weight;
-	int parent;
-	int lchild;
-	int rchild;
+	int weight;	//权重
+	int parent;	//父节点
+	int lchild; //left-child
+	int rchild; //right-child
 };
+//压缩文件头结构体
 struct HEAD
 {
-	char type[5]; // file type
-	int length; // file length
-	int weight[256]; // character occurrence
+	char type[5];		// 文件类型
+	int length;			// 文件大小
+	int weight[256];	// 字符权重
 };
 
 // CFileComDlg 对话框
@@ -53,14 +55,18 @@ public:
 	afx_msg void OnBnClickedComButton();
 	afx_msg void OnBnClickedUncomButton();
 
-	void saveToWeight(FILE * in, int * weight);
+	void GetAndSaveWeight(FILE * in, int * weight);
 
-	void createHFM(int * weight, HTNode * htNode);
+	void GenerateHaffmanTree(int * weight, HTNode * htNode);
 
-	int DepthHFM(HTNode * htNode, HTNode h);
+	int GetDepth(HTNode * htNode, HTNode h);
 
-	void encodeHFM(int depth, char * s, char ** encode, int i, HTNode * htNode, int h);
-	
+	void GenerateNewCode(int depth, char * s, char ** encode, int i, HTNode * htNode, int h);
+
+	CString GetExtensionOfFile(CString strFileName);
+
+	int  DataToBytes(int data);
+
 	CString m_origin;
 	CString m_now;
 };
